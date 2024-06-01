@@ -1,0 +1,127 @@
+[{
+  "_id": {
+    "$oid": "664d894be5ed3eb87418cb32"
+  },
+  "email": "john.doe@example.com",
+  "password": "$2b$10$N9qo8uLOickgx2ZMRZo5i.eW5BujwTt1Plt10g8rtrE8dd9YfjwVa",
+  "phone": "123-456-7890",
+  "role": "Customer",
+  "cart": [
+    {
+      "productId": "664989d3f5c0c911403169e9",
+      "name": "Mercurial Superfly 9 Elite",
+      "price": 249.99,
+      "quantity": 1
+    }
+  ],
+  "previousOrders": [
+    {
+      "orderId": "1001",
+      "orderDate": "2023-04-01",
+      "products": [
+        {
+          "productId": "6649e9d10af610744511703a",
+          "name": "Phantom GT2 Elite",
+          "price": 230,
+          "quantity": 1
+        },
+        {
+          "productId": "6649e9d10af610744511703d",
+          "name": "Tiempo Legend 8",
+          "price": 220,
+          "quantity": 2
+        }
+      ],
+      "total": 670
+    }
+  ],
+  "username": "John Doe",
+  "favoriteItems": [
+    {
+      "productId": "6649e9d10af6107445117038",
+      "name": "Future Z 1.1",
+      "price": 220
+    },
+    {
+      "productId": "6649e9d10af6107445117039",
+      "name": "X Ghosted .1",
+      "price": 180
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "664d894be5ed3eb87418cb34"
+  },
+  "email": "alice.johnson@example.com",
+  "password": "$2b$10$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36erHBZ8XriZcJl7PlGFh6W",
+  "phone": "555-123-4567",
+  "role": "Customer",
+  "cart": [
+    {
+      "productId": "664989d3f5c0c911403169e9",
+      "name": "Mercurial Superfly 9 Elite",
+      "price": 249.99,
+      "quantity": 1
+    }
+  ],
+  "previousOrders": [
+    {
+      "orderId": "1003",
+      "orderDate": "2023-05-10",
+      "products": [
+        {
+          "productId": "6649e9d10af610744511703b",
+          "name": "Magista Obra II",
+          "price": 210,
+          "quantity": 1
+        },
+        {
+          "productId": "6649e9d10af6107445117037",
+          "name": "Predator Freak .1",
+          "price": 199.99,
+          "quantity": 2
+        }
+      ],
+      "total": 609.98
+    }
+  ],
+  "username": "Alice Johnson",
+  "favoriteItems": [
+    {
+      "productId": "6649e9d10af610744511703f",
+      "name": "Real Madrid Away Shirt 2023/24",
+      "price": 89.99
+    },
+    {
+      "productId": "6649e9d10af610744511703e",
+      "name": "Manchester United Home Shirt 2023/24",
+      "price": 89.99
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "665abf6037f0e5fe283c4615"
+  },
+  "username": "mt",
+  "email": "mt@gmail.com",
+  "password": "$2b$10$uX8pt.8rxnq66aJUJGFKfO/rtayGbbe3/iLKWMcFygMHkEYOzuTge",
+  "phone": "0423456789",
+  "role": "Customer",
+  "cart": [],
+  "previousOrders": []
+},
+{
+  "_id": {
+    "$oid": "665ac095482628371ab38e6e"
+  },
+  "username": "johncena",
+  "email": "johncena@gmail.com",
+  "password": "$2b$10$2x9N/vy9h.elJn9T.tiEyegdZDkOMd3C//frRxPvkTCJ/m3gzFPIu",
+  "phone": "0412345678",
+  "role": "Customer",
+  "cart": [],
+  "previousOrders": [],
+  "favoriteItems": []
+}]
