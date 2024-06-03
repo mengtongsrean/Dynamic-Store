@@ -1,5 +1,5 @@
 const { getUserCollection } = require('../models/userModel'); // Importing the user collection
-const bcrypt = require('bcrypt'); // Importing bcrypt for password hashing
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken'); // Importing JSON Web Token for authentication
 const { ObjectId } = require('mongodb'); // Importing ObjectId to work with MongoDB IDs
 const moment = require('moment'); // Importing moment for date formatting
