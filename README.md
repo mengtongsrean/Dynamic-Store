@@ -93,6 +93,7 @@ football-store-app
 │  │  ├─ productRoutes.js
 │  │  └─ userRoutes.js
 │  └─ server.js
+│  └─ vercel.json
 ├─ jsconfig.json
 ├─ package-lock.json
 ├─ package.json
