@@ -1,61 +1,43 @@
-// controllers/productController.js
-const { getProductCollection } = require('../models/productModel');
+// Importing necessary modules and dependencies
+const { getProductCollection } = require('../models/productModel'); // Importing the product collection
+const { ObjectId } = require('mongodb'); // Importing ObjectId to work with MongoDB IDs
 
+
+// Function to get all products
 const getAllProducts = async (req, res) => {
-  try {
-    const products = await getProductCollection().find().toArray();
-    res.json(products);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
+    try {
+        const products = await getProductCollection().find().toArray(); // Fetch all products from the database
+        res.json(products); // Send the products as a JSON response
+    } catch (err) {
+        res.status(500).json({ message: err.message }); // Handle any errors
+    }
 };
 
-// const getProductById = async (req, res) => {
-//   try {
-//     const product = await getProductCollection().findOne({ _id: req.params.id });
-//     if (!product) {
-//       return res.status(404).json({ message: 'Product not found' });
-//     }
-//     res.json(product);
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// };
+// Function to add a product (only accessible by admin)
+const addProduct = async (req, res) => {
+    try {
+        const { name, price, brand, imagePath, type } = req.body; // Destructure product details from request body
 
-// const createProduct = async (req, res) => {
-//   try {
-//     const result = await getProductCollection().insertOne(req.body);
-//     res.status(201).json(result.ops[0]);
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// };
+        const newProduct = {
+            name,
+            price,
+            brand,
+            imagePath,
+            type
+        };
 
-// const updateProduct = async (req, res) => {
-//   try {
-//     const result = await getProductCollection().updateOne(
-//       { _id: req.params.id },
-//       { $set: req.body }
-//     );
-//     if (result.matchedCount === 0) {
-//       return res.status(404).json({ message: 'Product not found' });
-//     }
-//     res.json({ message: 'Product updated successfully' });
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// };
+        const result = await getProductCollection().insertOne(newProduct); // Insert the new product into the database
 
-// const deleteProduct = async (req, res) => {
-//   try {
-//     const result = await getProductCollection().deleteOne({ _id: req.params.id });
-//     if (result.deletedCount === 0) {
-//       return res.status(404).json({ message: 'Product not found' });
-//     }
-//     res.json({ message: 'Product deleted successfully' });
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// };
+        if (result.insertedId) {
+            res.status(201).json({ message: 'Product added successfully' }); // Respond with a success message
+        } else {
+            throw new Error('Product addition failed'); // Throw error if addition fails
+        }
+    } catch (err) {
+        console.error('Error adding product:', err);
+        res.status(500).json({ message: 'Failed to add product' }); // Handle any errors
+    }
+};
 
-module.exports = { getAllProducts};
+// Export the functions
+module.exports = { getAllProducts, addProduct };

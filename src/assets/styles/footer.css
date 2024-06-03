@@ -1,0 +1,40 @@
+.footer .container {
+    max-width: 800px;
+    margin: auto;
+}
+
+.footer h5 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: rgb(43, 9, 9);
+    font-weight: 700;
+}
+
+.footer p {
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 250;
+}
+
+.footer .btn-floating {
+    font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .footer .container {
+        padding: 0 1rem;
+    }
+
+    .footer h5 {
+        font-size: 1.1rem;
+    }
+
+    .footer p {
+        font-size: 0.9rem;
+
+    }
+
+    .footer .btn-floating {
+        font-size: 1.25rem;
+    }
+}

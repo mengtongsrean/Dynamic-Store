@@ -1,106 +1,184 @@
 <template>
-    <section style="background-color:#eee;">
-        <div class="container-fluid py-4">
-          <div class="row d-flex justify-content-center align-items-center">
-            <div class="col">
-              <div class="card">
-                <div class="card-body p-0">
-                  <div class="row g-0">
-                    <div class="col-lg-8">
-                      <div class="p-5">
-                        <div class="d-flex justify-content-center mb-5">
-                          <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
-                        </div>
-                        <hr class="my-4">
-                        <h6 class="text-center" v-if="!Object.keys(cart).length"><em>No items in cart!</em></h6>
-                        <div class="row mb-4 d-flex justify-content-between align-items-center" v-for="(quantity, key, i) in cart" :key="i">
-                          <div class="col-md-2 col-lg-2 col-xl-2">
-                            <img
-                              :src="getImagePath(key)"
-                              class="img-fluid rounded-4" alt="Cotton T-shirt">
-                          </div>
-                          <div class="col-md-2 col-lg-2 col-xl-2 text-center">
-                            <h6 class="text-muted">Type</h6>
-                            <h6 class="text-black mb-0">{{ key }}</h6>
-                          </div>
-                            <div class="col-md-2 col-lg-2 col-xl-2 text-center">
-                                <h6 class="text-muted">Quantity</h6>
-                                <h6 class="mb-0">{{ quantity }}</h6>
-                            </div>
-                            <div class="col-md-2 col-lg-2 col-xl-2 text-center">
-                                <h6 class="text-muted">Price</h6>
-                                <h6 class="mb-0">$ {{ getPrice(key).toFixed(2) }}</h6>
-                            </div>
-                            <div class="col-md-2 col-lg-2 col-xl-2 text-center">
-                                <h6 class="text-muted">Total</h6>
-                                <h6 class="mb-0">$ {{ (getPrice(key) * quantity).toFixed(2) }}</h6>
-                            </div>
-                          <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                            <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                          </div>
-                        </div>
-      
-                        <hr class="my-4">
-                        <div class="d-flex justify-content-between pt-3">
-                            <h6 class="mb-0" style="color:black;">
-                                <router-link to="/">
-                                    <i class="bi bi-arrow-left"></i>Back to Products
+    <!-- Cart Section -->
+    <section class="bg-light py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <!-- Header with Title and Back to Products Button -->
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h2 class="fw-bold text-primary">Your Cart</h2>
+                                <router-link to="/" class="btn btn-outline-primary">
+                                    <i class="bi bi-arrow-left"></i> Back to Products
                                 </router-link>
-                            </h6>
-                            <h6 class="mb-0 text-muted">{{ totalquantity }} items</h6>
+                            </div>
+                            <hr>
+                            <!-- Loading Spinner -->
+                            <div v-if="loading" class="text-center">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                            <!-- No Items Message -->
+                            <div v-if="!loading && cartItems.length === 0" class="text-center">
+                                <p class="text-muted">No items in your cart.</p>
+                            </div>
+                            <!-- Cart Items -->
+                            <div v-else>
+                                <div v-for="item in cartItems" :key="item.productId"
+                                    class="row mb-4 align-items-center">
+                                    <!-- Product Image -->
+                                    <div class="col-3">
+                                        <img :src="getImagePath(item.imagePath)" class="img-fluid rounded"
+                                            :alt="item.name">
+                                    </div>
+                                    <!-- Product Name and Brand -->
+                                    <div class="col-3">
+                                        <h5 class="text-muted">{{ item.name }}</h5>
+                                        <p class="text-muted">{{ item.brand }}</p>
+                                    </div>
+                                    <!-- Quantity Input -->
+                                    <div class="col-2 text-center">
+                                        <h6 class="text-muted">Quantity</h6>
+                                        <input type="number" class="form-control text-center"
+                                            v-model.number="item.quantity" @change="updateQuantity(item)" min="1">
+                                    </div>
+                                    <!-- Product Price -->
+                                    <div class="col-2 text-center">
+                                        <h6 class="text-muted">Price</h6>
+                                        <p class="mb-0">${{ item.price }}</p>
+                                    </div>
+                                    <!-- Total Price -->
+                                    <div class="col-2 text-center">
+                                        <h6 class="text-muted">Total</h6>
+                                        <p class="mb-0">${{ item.price * item.quantity }}</p>
+                                    </div>
+                                    <!-- Remove Button -->
+                                    <div class="col-12 col-md-1 text-end">
+                                        <button class="btn btn-danger btn-sm" @click="removeFromCart(item.productId)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <!-- Cart Summary -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="text-muted">{{ cartItems.length }} items</h5>
+                                <h5 class="text-muted">Total: ${{ calculateTotal() }}</h5>
+                            </div>
+                            <!-- Proceed to Checkout Button -->
+                            <div class="d-flex justify-content-end mt-4">
+                                <button class="btn btn-primary btn-lg" @click="processOrder">Proceed to
+                                    Checkout</button>
+                            </div>
                         </div>
-                      </div>
                     </div>
-
-                    <div class="col-lg-4 bg-grey">
-                      <div class="p-5">
-                        <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
-                        <hr class="my-4">
-      
-                        <div class="d-flex justify-content-between mb-5">
-                          <h5>TOTAL PRICE</h5>
-                          <h5>${{ calculateTotal() }}</h5>
-                        </div>
-                        <button type="button" class="btn btn-dark btn-block btn-lg">Buy Now</button>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </section>
+    </section>
 </template>
+
 <script>
+import Swal from 'sweetalert2'; // Importing SweetAlert for alerts
+import axiosInstance from '@/axios.js'; // Importing axios instance for API calls
+
 export default {
-  props: ['toggle', 'cart', 'inventory', 'removeitem' ,'totalquantity'],
-  methods: {
-    getPrice(name) {
-      const product = this.inventory.find((p) => {
-        return p.name === name
-      })
-      return product.price
+    data() {
+        return {
+            cartItems: [], // Array to hold cart items
+            loading: true, // Loading state
+            isAuthenticated: !!localStorage.getItem('token'), // Check if the user is authenticated
+        };
     },
-
-    getImagePath(name) {
-      const product = this.inventory.find((p) => {
-        return p.name === name
-      })
-      return require(`../assets/images/product-images/${product.imagePath}`);
+    methods: {
+        // Method to get the image path
+        getImagePath(imagePath) {
+            if (imagePath) {
+                return require(`@/assets/images/product-images/${imagePath}`);
+            }
+            // Fallback image if imagePath is undefined
+            return require('@/assets/images/product-images/default.jpg');
+        },
+        // Method to fetch cart items
+        async fetchCartItems() {
+            if (!this.isAuthenticated) return;
+            try {
+                const response = await axiosInstance.get('/users/get-cart-items', {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                this.cartItems = response.data || [];
+            } catch (error) {
+                console.error('Failed to load cart items', error);
+            } finally {
+                this.loading = false;
+            }
+        },
+        // Method to remove an item from the cart
+        async removeFromCart(productId) {
+            try {
+                await axiosInstance.delete(`/users/remove-cart-item/${productId}`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                this.cartItems = this.cartItems.filter(item => item.productId !== productId);
+                Swal.fire('Removed', 'Product removed from cart', 'success');
+            } catch (error) {
+                console.error('Failed to remove from cart', error);
+                Swal.fire('Error', 'Failed to remove from cart', 'error');
+            }
+        },
+        // Method to update the quantity of a cart item
+        async updateQuantity(item) {
+            try {
+                await axiosInstance.put(`/users/update-cart-item/${item.productId}`, {
+                    quantity: item.quantity
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                Swal.fire('Updated', 'Product quantity updated', 'success');
+            } catch (error) {
+                console.error('Failed to update quantity', error);
+                Swal.fire('Error', 'Failed to update quantity', 'error');
+            }
+        },
+        // Method to process the order
+        async processOrder() {
+            if (this.cartItems.length === 0) {
+                Swal.fire('Error', 'Your cart is empty', 'error');
+                return;
+            }
+            try {
+                const response = await axiosInstance.post('/users/process-order', {
+                    cartItems: this.cartItems
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                this.cartItems = []; // Clear the cart in the frontend
+                Swal.fire('Success', 'Order processed successfully', 'success');
+            } catch (error) {
+                console.error('Failed to process order', error);
+                Swal.fire('Error', 'Failed to process order', 'error');
+            }
+        },
+        // Method to calculate the total price of the cart items
+        calculateTotal() {
+            return this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+        }
     },
-
-    calculateTotal() {
-      const total = Object.entries(this.cart).reduce((acc, curr, index) => {
-        return acc + (curr[1] * this.getPrice(curr[0]))
-      }, 0)
-      return total.toFixed(2)
+    async created() {
+        await this.fetchCartItems(); // Fetch cart items when the component is created
     }
-  }
-}
+};
 </script>
-<style>
-.bg-grey {
-    background-color: #eae8e8;
-}
-</style>
+
+<style scoped src="@/assets/styles/cartpage.css"></style>

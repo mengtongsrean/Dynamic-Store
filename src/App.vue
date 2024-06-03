@@ -1,45 +1,36 @@
 <template>
     <div id="app">
-      <NavBar :totalQuantity="totalQuantity" />
-      <router-view :inventory="inventory" :addToCart="addToCart" :cart="cart"  :removeitem="removeItem" :totalquantity="totalQuantity"/>
+        <NavBar />
+        <router-view :inventory="inventory" />
     </div>
-  </template>
-  
-  <script>
-import NavBar from '@/components/NavBar.vue'
-import axiosInstance from './axios.js';
-  
-  export default {
+</template>
+
+<script>
+import NavBar from '@/components/NavBar.vue' // Import the NavBar component
+import axiosInstance from './axios.js' // Import the axios instance
+
+export default {
     components: {
-      NavBar
+        NavBar // Register NavBar component
     },
     data() {
-      return {
-        inventory: [],
-        cart: {}
-      };
-    },
-    async created() {
-      const response = await axiosInstance.get('/products');
-      this.inventory = response.data;
-    },
-    computed: {
-      totalQuantity() {
-        return Object.values(this.cart).reduce((acc, curr) => {
-          return acc + curr;
-        }, 0);
-      }
+        return {
+            inventory: [] // Initialize inventory as an empty array
+        };
     },
     methods: {
-      addToCart(name, quantity) {
-        if (!this.cart[name]) this.cart[name] = 0;
-        this.cart[name] += quantity;
-      },
-      removeItem(name) {
-        delete this.cart[name];
-      }
+        // Method to fetch products from the server
+        async fetchProducts() {
+            try {
+                const response = await axiosInstance.get('/products'); // Make GET request to fetch products
+                this.inventory = response.data; // Assign fetched data to inventory
+            } catch (error) {
+                console.error('Error getting products:', error); // Log error if request fails
+            }
+        }
+    },
+    async created() {
+        await this.fetchProducts(); // Fetch products when the component is created
     }
-  };
-  </script>
-  
-  
+};
+</script>

@@ -2,18 +2,42 @@
     position: relative;
 }
 
+.card {
+    transition: transform 0.2s;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+
 .card-img-top {
     width: 100%;
     height: auto;
+}
+
+.card-title {
+    font-size: 1.25rem;
+}
+
+.card-text {
+    margin: 0.5rem 0;
+}
+
+.btn {
+    margin-top: 0.5rem;
+}
+
+.text-center {
+    text-align: center;
 }
 
 .like-btn {
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(248, 188, 188, 0.8);
     border: none;
-    border-radius: 50%;
+    border-radius: 30%;
     padding: 10px;
     cursor: pointer;
     display: none;
@@ -21,25 +45,10 @@
 
 .img-container:hover .like-btn {
     display: block;
-}
 
-.btn-add-to-cart {
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 1px;
-    padding: 9px 27px;
-    display: inline-block;
-    border-radius: 25px;
-    border: none;
+}
+.like-btn:hover {
+    color: rgb(255, 255, 255);
+    background-color: rgb(241, 48, 48);
     transition: 0.35s;
-    color: #ffffff; /* Text color */
-    background: #1e90ff; /* Blue background color */
-    box-shadow: 0 8px 28px rgba(30, 144, 255, 0.2); /* Blue shadow */
-    cursor: pointer;
-
 }
- 
-.btn-add-to-cart:hover {
-    background: #00ced1; /* Cyan background color */
-    box-shadow: 0 8px 28px rgba(0, 206, 209, 0.45); /* Cyan shadow */
-  }

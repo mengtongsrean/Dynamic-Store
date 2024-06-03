@@ -1,151 +1,89 @@
-<!-- <template>
-    <section class="vh-100 gradient-custom">
-        <div class="container py-5 h-100">
-          <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-              <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                <div class="card-body p-5 text-center">
-                  <div class="mb-md-5 mt-md-4 pb-5">
-                    <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                    <p class="text-white-50 mb-5">Please enter your login and password!</p>
-                    <div data-mdb-input-init class="form-outline form-white mb-4">
-                      <input type="email" id="typeEmailX" class="form-control form-control-lg" />
-                      <label class="form-label" for="typeEmailX">Email</label>
-                    </div>
-                    <div data-mdb-input-init class="form-outline form-white mb-4">
-                      <input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                      <label class="form-label" for="typePasswordX">Password</label>
-                    </div>
-                    <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
-                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
-                    <div class="d-flex justify-content-center text-center mt-4 pt-1">
-                      <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
-                      <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
-                      <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
-                    </div>
-                  </div>
-                  <div>
-                    <p class="mb-0">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign Up</a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-</template>
-
-<style>
-.gradient-custom {
-    /* fallback for old browsers */
-    background: #f0f0f0;
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: -webkit-linear-gradient(to right, rgb(184, 178, 189), rgb(165, 167, 171));
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to right, rgb(178, 175, 182), rgb(220, 220, 221))
-    }
-</style> -->
-
-
 <template>
-  <div class="login-container my-5">
-    <h1>Login</h1>
-    <form @submit.prevent="login">
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" v-model="email" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" v-model="password" class="form-control">
-      </div>
-      <button type="submit" class="btn btn-primary">Login</button>
-    </form>
-    <ul v-if="errors.length" class="text-danger">
-      <li v-for="error in errors" :key="error">{{ error }}</li>
-    </ul>
-    <p>
-      Don't have an account? <router-link to="/register-page">Register here</router-link>.
-    </p>
-  </div>
+    <!-- Login Container -->
+    <div class="login-container my-5">
+        <div class="card shadow p-4">
+            <!-- Page Title -->
+            <h1 class="text-center mb-4">Login</h1>
+            <!-- Login Form -->
+            <form @submit.prevent="login">
+                <div class="form-group mb-3">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" v-model="email" class="form-control">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" v-model="password" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+            </form>
+            <!-- Error Messages -->
+            <ul v-if="errors.length" class="text-danger mt-3">
+                <li v-for="error in errors" :key="error">{{ error }}</li>
+            </ul>
+            <!-- Register Link -->
+            <p class="mt-4 text-center">
+                Don't have an account? <router-link to="/register-page">Register here</router-link>.
+            </p>
+        </div>
+    </div>
 </template>
 
 <script>
-import axiosInstance from '@/axios.js';
+import axiosInstance from '@/axios.js'; // Importing axios instance for API calls
 
 export default {
-  data() {
-    return {
-      email: '',
-      password: '',
-      errors: [],
-    };
-  },
-  methods: {
-    validateEmail(email) {
-      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      return emailPattern.test(email);
+    data() {
+        return {
+            email: '', // Email input
+            password: '', // Password input
+            errors: [], // Array to hold validation errors
+        };
     },
-    
-    validateForm() {
-      this.errors = [];
+    methods: {
+        // Method to validate email format
+        validateEmail(email) {
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            return emailPattern.test(email);
+        },
 
-      if (!this.email || !this.validateEmail(this.email)) {
-        this.errors.push("Must be in email format and is required.");
-      }
-      if (!this.password) {
-        this.errors.push("Password is required.");
-      }
+        // Method to validate form inputs
+        validateForm() {
+            this.errors = [];
 
-      return this.errors.length === 0;
+            if (!this.email || !this.validateEmail(this.email)) {
+                this.errors.push("Must be in email format and is required.");
+            }
+            if (!this.password) {
+                this.errors.push("Password is required.");
+            }
+
+            return this.errors.length === 0;
+        },
+        // Method to handle login
+        async login() {
+            if (!this.validateForm()) {
+                return;
+            }
+
+            try {
+                const response = await axiosInstance.post('/users/login', {
+                    email: this.email,
+                    password: this.password,
+                });
+                if (response.data.token && response.data.user) {
+                    localStorage.setItem('token', response.data.token);
+                    localStorage.setItem('user', JSON.stringify(response.data.user));
+                    this.$router.push('/');
+                } else {
+                    this.errors.push('Unexpected response from server.');
+                }
+            } catch (error) {
+                this.errors.push('Invalid email or password');
+                console.error('Error during login:', error);
+            }
+        },
     },
-    async login() {
-      if (!this.validateForm()) {
-        return;
-      }
-
-      try {
-        const response = await axiosInstance.post('/users/login', {
-          email: this.email,
-          password: this.password,
-        });
-        if (response.data.token && response.data.user) {
-          localStorage.setItem('token', response.data.token);
-          localStorage.setItem('user', JSON.stringify(response.data.user));
-          this.$router.push('/');
-        } else {
-          this.errors.push('Unexpected response from server.');
-        }
-      } catch (error) {
-        this.errors.push('Invalid email or password');
-        console.error('Error during login:', error);
-      }
-    },
-  },
 };
 </script>
 
-<style scoped>
-.login-container {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
-}
-
-.text-danger {
-  color: #dc3545;
-}
-</style>
+<style scoped src="@/assets/styles/loginpage.css"></style>

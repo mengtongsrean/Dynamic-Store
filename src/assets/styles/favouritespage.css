@@ -1,0 +1,52 @@
+.container {
+    max-width: 1000px;
+}
+
+.card {
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+.card-body {
+    position: relative;
+}
+
+.card-img-top,
+.img-fluid {
+    width: 100%;
+    height: auto;
+}
+
+.card-title {
+    font-size: 1.25rem;
+}
+
+.card-text {
+    margin: 0.5rem 0;
+}
+
+.btn {
+    margin-top: 0.5rem;
+    justify-items: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transition: 0.35s;
+    color: #ffffff;
+    /* Text color */
+    background: #f04752;
+    /* Red background color */
+    box-shadow: 0 8px 28px rgba(247, 30, 63, 0.2);
+    /* Red shadow */
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #f299a8;
+    /* Red background color */
+    box-shadow: 0 8px 28px rgba(252, 31, 64, 0.45);
+    /* Red shadow */
+}

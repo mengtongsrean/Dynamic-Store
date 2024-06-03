@@ -7,6 +7,7 @@ import Profile from '@/views/Profile.vue'
 import HomePage from '@/views/HomePage.vue'
 import RegisterPage from '@/views/RegisterPage.vue'
 import FavouritesPage from '@/views/FavouritesPage.vue'
+import AddProduct from '@/views/AddProduct.vue'
 
 const routes = [
   {
@@ -48,11 +49,18 @@ const routes = [
     path: '/favourites',
     name: 'FavouritesPage',
     component: FavouritesPage
+  },
+  {
+    path: '/add-product',
+    name: 'AddProduct',
+    component: AddProduct
   }
 ]
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+
 
 export default router

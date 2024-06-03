@@ -1,19 +1,17 @@
 // routes/productRoutes.js
 const express = require('express');
+const { authenticateToken } = require('../middleware/auth');
 const {
-  getAllProducts,
-  // getProductById,
-  // createProduct,
-  // updateProduct,
-  // deleteProduct,
+    getAllProducts,   // Import the getAllProducts controller
+    addProduct,       // Import the addProduct controller
 } = require('../controllers/productController');
 
 const router = express.Router();
 
+// Route to get all products
 router.get('/', getAllProducts);
-// router.get('/:id', getProductById);
-// router.post('/', createProduct);
-// router.put('/:id', updateProduct);
-// router.delete('/:id', deleteProduct);
+
+// Route to add a new product, requires authentication
+router.post('/add-product', authenticateToken, addProduct);
 
 module.exports = router;

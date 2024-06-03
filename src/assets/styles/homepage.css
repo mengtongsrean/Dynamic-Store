@@ -1,35 +1,35 @@
 .section-bg {
     background-color: #eee;
-  }
-  
-  .hero {
+}
+
+.hero {
     width: 100%;
     background-size: cover;
     position: relative;
     min-height: 50vh;
     padding: 60px 0 60px 0;
-  }
-  
-  .hero h2 {
+}
+
+.hero h2 {
     font-size: 64px;
     font-weight: 700;
     margin-bottom: 20px;
     color: var(--color-secondary);
     font-family: var(--font-primary);
-  }
-  
-  .hero h2 span {
+}
+
+.hero h2 span {
     color: var(--color-primary);
-  }
-  
-  .hero p {
+}
+
+.hero p {
     color: #4f4f5a;
     font-weight: 400;
     margin-bottom: 30px;
-  }
-  
-  
-  .hero .check-products {
+}
+
+
+.hero .check-products {
     font-weight: 500;
     font-size: 14px;
     letter-spacing: 1px;
@@ -37,22 +37,28 @@
     display: inline-block;
     border-radius: 50px;
     transition: 0.5s;
-    color: #ffffff; /* Text color */
-    background: #dc143c; /* Crimson background color */
-    box-shadow: 0 8px 28px rgba(220, 20, 60, 0.2); /* Crimson shadow */
-  }
-  
-  .hero .check-products:hover {
-    background: #ff7f50; /* Orange background color */
-    box-shadow: 0 8px 28px rgba(255, 127, 80, 0.2); /* Orange shadow */
-  }
-  
-  @media (max-width: 640px) {
+    color: #ffffff;
+    /* Text color */
+    background: #dc143c;
+    /* Crimson background color */
+    box-shadow: 0 8px 28px rgba(220, 20, 60, 0.2);
+    /* Crimson shadow */
+}
+
+.hero .check-products:hover {
+    background: #ff7f50;
+    /* Orange background color */
+    box-shadow: 0 8px 28px rgba(255, 127, 80, 0.2);
+    /* Orange shadow */
+}
+
+@media (max-width: 640px) {
     .hero h2 {
-      font-size: 36px;
+        font-size: 36px;
     }
+
     .hero .btn-get-started,
     .hero .btn-watch-video {
-      font-size: 14px;
+        font-size: 14px;
     }
-  }
+}

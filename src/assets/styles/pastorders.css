@@ -1,51 +1,51 @@
 .container {
     max-width: 1000px;
-  }
-  
-  .order-card {
+}
+
+.order-card {
     margin-bottom: 20px;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .order-id {
+}
+
+.order-id {
     font-size: 1.2rem;
     margin-bottom: 10px;
-  }
-  
-  .table thead {
+}
+
+.table thead {
     background-color: #f8f9fa;
-  }
-  
-  .table th, .table td {
+}
+
+.table th, .table td {
     vertical-align: middle;
-  }
-  
-  .img-thumbnail {
+}
+
+.img-thumbnail {
     display: block;
     max-width: 100px;
     max-height: 100px;
     width: auto;
     height: auto;
-  }
-  
-  .text-end {
+}
+
+.text-end {
     text-align: end;
-  }
-  
-  @media (max-width: 768px) {
+}
+
+@media (max-width: 768px) {
     .order-card {
-      padding: 15px;
+        padding: 15px;
     }
-  
+
     .order-id {
-      font-size: 1rem;
+        font-size: 1rem;
     }
-  
+
     .img-thumbnail {
-      max-width: 75px;
-      max-height: 75px;
+        max-width: 75px;
+        max-height: 75px;
     }
-  }
+}
