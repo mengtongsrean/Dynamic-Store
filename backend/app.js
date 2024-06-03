@@ -1,6 +1,5 @@
 // app.js
 const express = require('express');
-const { connectDB } = require('./config/db');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
@@ -16,8 +15,5 @@ app.use(bodyParser.json());
 // Routes
 app.use('/products', productRoutes);
 app.use('/users', userRoutes);
-
-// Connect to Database
-connectDB();
 
 module.exports = app;

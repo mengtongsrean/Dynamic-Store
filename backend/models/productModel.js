@@ -1,10 +1,12 @@
 // models/productModel.js
 const { getDB } = require('../config/db');
 
-// Function to get the product collection from the database
 const getProductCollection = () => {
-    const db = getDB();  // Get the database instance
-    return db.collection('products');  // Return the products collection
+    const db = getDB();
+    if (!db) {
+        throw new Error('Database not initialized. Call connectDB first.');
+    }
+    return db.collection('products');
 };
 
 module.exports = { getProductCollection };
